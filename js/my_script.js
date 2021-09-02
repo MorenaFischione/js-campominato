@@ -31,9 +31,10 @@
 
     let listaBombe = [];
     let numeriScelti = [];
-    let possibilita = 10;
-    let trovato = true;
-    let punteggio= 0;
+    let possibilita = 100; 
+    let bombe = 16;
+    let livello = possibilita - bombe;
+    
 
     //Creo funzione che genera un numero randomico
     function getRandomNumber(min, max) {
@@ -49,25 +50,68 @@
             listaBombe.push(num);
         }
     }
-    console.log(listaBombe);  
-    
-    
-    let i = 0;
-    while (( i < possibilita) && (trovato == true)) {
-        let numeroScelto = parseInt(prompt("Inserisci un numero tra 1 e 100"));
-        console.log(numeroScelto);
-        for ( let x = 0; x < listaBombe.length; x++) {
-            if (numeroScelto == listaBombe[x]) {
-                numeriScelti.push(numeroScelto);
-                console.log(numeriScelti);
-                
-            } 
-            // if (trovato == true) {
-            //     console.log("partita finita");
-            //   }
+    console.log(listaBombe); 
+
+
+    let numeroScelto = parseInt(prompt("Inserisci un numero da 1 a 100"));
+    // console.log(numeroScelto);
+
+    while ( (isNaN(numeroScelto)) || (numeroScelto < possibilita) || (numeroScelto > 1) || ( numeriScelti.includes(numeroScelto))) {
+        if ( isNaN(numeroScelto)) {
+            numeroScelto = parseInt(prompt("Questo non è un numero. inserisci un numero da 1 a 100"));
+        } else if ((numeroScelto > possibilita) || (numeroScelto < 1) ) {
+            numeroScelto = parseInt(prompt("Il numero inserito non è compreso tra 1 e 100. Inserisci un numero"));
+        } else if ( numeriScelti.includes(numeroScelto) ) {
+            numeroScelto = parseInt(prompt("Il numero inserito è già stato inserito. Inserisci un nuovo numero"));
+        } else {
+            numeriScelti.push(numeroScelto);
         }
-        i++;
+        console.log(numeroScelto);
     }
+
+    
+
+    
+
+    // devo chiedere all'utente di inserire per 84 volte un numero.
+    // per ogni volta che ricevo il numero devo verificare se il numero inserito non è presente tra le listaBombe. 
+    // devo verificare se il numero non è presente tra i già inseriti in tal caso lo inserisco in numeriScelti.
+    // se non lo è la partita continua. se è presente nella listaBombe la partita è terminata hai perso.
+    
+    
+    // let i = 0;
+    // while ( i < possibilita ) {
+    //     numeroScelto = parseInt(prompt("Inserisci un numero tra 1 e 100"));
+    //     console.log(numeroScelto);
+    //     for (let x = 0; x < numeriScelti.length; i++) {
+    //         if ( numeriScelti[x] === numeroScelto) {
+    //             return ;
+    //         }
+    //         return false;
+    //     }
+    //     i++;
+    // }
+
+
+    
+    // while (( numeroScelto < possibilita) {
+    //     let numeroScelto = parseInt(prompt("Inserisci un numero tra 1 e 100"));
+    //     console.log(numeroScelto);
+    //     let x = 0;
+    //     while (x < listaBombe.length) {
+            
+    //         if (numeroScelto == listaBombe[x]) {
+    //             numeriScelti.push(numeroScelto);
+    //             console.log(numeriScelti);
+    //             trovato = true;
+    //         x++
+    //         } 
+    //         if (trovato == true) {
+    //             console.log("partita finita");
+    //           }
+    //         }
+    // i++;
+    // }
 
     
 
