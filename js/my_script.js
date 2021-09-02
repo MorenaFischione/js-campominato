@@ -54,24 +54,25 @@
 
 
 
-    while ( numeriScelti.length < livello) { //finchè la lista scelte 
+    while ( numeriScelti.length < livello) { // finchè la lista dei numeri scelti contiene meno numeri di quelli richiesti 
         let numeroScelto = parseInt(prompt("Inserisci un numero da 1 a 100"));
         while ( (isNaN(numeroScelto)) || (numeroScelto > possibilita) || (numeroScelto < 1) || ( numeriScelti.includes(numeroScelto))) {
-            if ( (numeriScelti.includes(numeroScelto) == true) ) {
+            // finchè il numero scelto dall'utente non è un numero, è compreso tra 1 e 100 e è incluso nella lista dei numeri scelti verifico 
+            if ( (numeriScelti.includes(numeroScelto) == true) ) {  // se è un numero già presente
                 numeroScelto = parseInt(prompt("Il numero inserito è già stato inserito. Inserisci un nuovo numero"));
-            } else if ((numeroScelto > possibilita) || (numeroScelto < 1)) {
-                numeroScelto = parseInt(prompt("Il numero inserito non è compreso tra 1 e 100. Inserisci un numero"));
-            } else {
+            } else if ((numeroScelto > possibilita) || (numeroScelto < 1)) { // se è un numero fuori dall'intervallo
+                numeroScelto = parseInt(prompt("Il numero inserito non è compreso tra 1 e ." + possibilita + " un numero"));
+            } else { // in tutti gli atri casi (cioè non è un numero)
                 numeroScelto = parseInt(prompt("Il numero inserito non valido. Inserisci un nuovo numero"));
             } 
         }
-        if ( listaBombe.includes(numeroScelto) ) {
+        if ( listaBombe.includes(numeroScelto) ) { // se l'utente ha scelto la bomba: ha perso.
             alert("Mi dispiace hai perso. Il tuo punteggio è: " + numeriScelti.length);
             numeriScelti.length = livello;
-        } else {
-            numeriScelti.push(numeroScelto);
+        } else { // altrimenti 
+            numeriScelti.push(numeroScelto); // aggiungo il numero alla lista dei numeri scelti dall'utente e
             console.log(numeriScelti);
-            if (numeriScelti.length == livello) {
+            if (numeriScelti.length == livello) { // se la lunghezza della lista dei numeri scelti dall'utente è uguale al livello: ha vinto.
                 alert("Bravo. Hai vinto. Il tuo punteggio è: " + numeriScelti.length);
             }
         }
