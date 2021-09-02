@@ -31,8 +31,8 @@
 
     let listaBombe = [];
     let numeriScelti = [];
-    let possibilita = 100; 
-    let bombe = 16;
+    let possibilita = 10; 
+    let bombe = 2;
     let livello = possibilita - bombe;
     
 
@@ -44,8 +44,8 @@
     // Creo un ciclo While per inserire 16 numeri randomici nell'array listaBombe se il numero generato
     // non è già presente.
 
-    while (listaBombe.length < 16 ) {
-        let num = getRandomNumber(1, 100);     
+    while (listaBombe.length < bombe ) {
+        let num = getRandomNumber(1, possibilita);     
         if ( !listaBombe.includes(num) ) {
             listaBombe.push(num);
         }
@@ -53,21 +53,33 @@
     console.log(listaBombe); 
 
 
-    let numeroScelto = parseInt(prompt("Inserisci un numero da 1 a 100"));
-    // console.log(numeroScelto);
 
-    while ( (isNaN(numeroScelto)) || (numeroScelto < possibilita) || (numeroScelto > 1) || ( numeriScelti.includes(numeroScelto))) {
-        if ( isNaN(numeroScelto)) {
-            numeroScelto = parseInt(prompt("Questo non è un numero. inserisci un numero da 1 a 100"));
-        } else if ((numeroScelto > possibilita) || (numeroScelto < 1) ) {
-            numeroScelto = parseInt(prompt("Il numero inserito non è compreso tra 1 e 100. Inserisci un numero"));
-        } else if ( numeriScelti.includes(numeroScelto) ) {
-            numeroScelto = parseInt(prompt("Il numero inserito è già stato inserito. Inserisci un nuovo numero"));
+    while ( numeriScelti.length < livello) { //finchè la lista scelte 
+        let numeroScelto = parseInt(prompt("Inserisci un numero da 1 a 100"));
+        while ( (isNaN(numeroScelto)) || (numeroScelto > possibilita) || (numeroScelto < 1) || ( numeriScelti.includes(numeroScelto))) {
+            if ( (numeriScelti.includes(numeroScelto) == true) ) {
+                numeroScelto = parseInt(prompt("Il numero inserito è già stato inserito. Inserisci un nuovo numero"));
+            } else if ((numeroScelto > possibilita) || (numeroScelto < 1)) {
+                numeroScelto = parseInt(prompt("Il numero inserito non è compreso tra 1 e 100. Inserisci un numero"));
+            } else {
+                numeroScelto = parseInt(prompt("Il numero inserito non valido. Inserisci un nuovo numero"));
+            } 
+        }
+        if ( listaBombe.includes(numeroScelto) ) {
+            alert("Mi dispiace hai perso. Il tuo punteggio è: " + numeriScelti.length);
+            numeriScelti.length = livello;
         } else {
             numeriScelti.push(numeroScelto);
+            console.log(numeriScelti);
+            if (numeriScelti.length == livello) {
+                alert("Bravo. Hai vinto. Il tuo punteggio è: " + numeriScelti.length);
+            }
         }
-        console.log(numeroScelto);
     }
+
+    
+
+    
 
     
 
