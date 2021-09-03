@@ -34,6 +34,8 @@
     let possibilita = 10; 
     let bombe = 2;
     let livello = possibilita - bombe;
+
+    
     
 
     //Creo funzione che genera un numero randomico
