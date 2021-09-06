@@ -31,17 +31,48 @@
 
     let listaBombe = [];
     let numeriScelti = [];
-    let possibilita = 10; 
-    let bombe = 2;
-    let livello = possibilita - bombe;
+    let possibilita; 
+    let bombe;
+    let listaLivello = ["facile", "medio", "difficile"];
 
-    
-    
 
-    //Creo funzione che genera un numero randomico
-    function getRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    let sceltaLivello = prompt("Scegli un livello tra quelli possibili: facile , medio , difficile");
+
+    // finche il livello scelto è una stringa vuota oppure non è tra i livelli scelti
+    while ( sceltaLivello.length == 0 || !listaLivello.includes(sceltaLivello.trim().toLowerCase()) ) {
+        sceltaLivello = prompt("Hai inserito una difficoltà inesistente. Scegli un livello tra quelli possibili: facile, medio, difficile");
     }
+
+    let listaTemporanea = controlloLivello(sceltaLivello);
+    possibilita = listaTemporanea[0];
+    bombe = listaTemporanea[1];
+
+      
+    switch (sceltaLivello) {
+        case "facile":
+        possibilita = 10; 
+        bombe = 2;
+        break;
+
+        case "medio":
+        possibilita = 10; 
+        bombe = 4;
+        break;
+
+        case "difficile":
+        possibilita = 10; 
+        bombe = 6;
+        break;
+
+        default:
+        possibilita = 10; 
+        bombe = 2;
+    }
+
+    let livello = possibilita - bombe;
+    
+
+
 
     // Creo un ciclo While per inserire 16 numeri randomici nell'array listaBombe se il numero generato
     // non è già presente.
@@ -58,7 +89,7 @@
 
     while ( numeriScelti.length < livello) { // finchè la lista dei numeri scelti contiene meno numeri di quelli richiesti 
         let numeroScelto = parseInt(prompt("Inserisci un numero da 1 a 100"));
-        while ( (isNaN(numeroScelto)) || (numeroScelto > possibilita) || (numeroScelto < 1) || ( numeriScelti.includes(numeroScelto))) {
+        while ( !isNumeroValido(possibilita, 1, numeroScelto) || ( numeriScelti.includes(numeroScelto))) {
             // finchè il numero scelto dall'utente non è un numero, è compreso tra 1 e 100 e è incluso nella lista dei numeri scelti verifico 
             if ( (numeriScelti.includes(numeroScelto) == true) ) {  // se è un numero già presente
                 numeroScelto = parseInt(prompt("Il numero inserito è già stato inserito. Inserisci un nuovo numero"));
@@ -80,75 +111,46 @@
         }
     }
 
-    
+    /* #######  Funzioni  ####### */
 
-    
-
-    
-
-    
-
-    // devo chiedere all'utente di inserire per 84 volte un numero.
-    // per ogni volta che ricevo il numero devo verificare se il numero inserito non è presente tra le listaBombe. 
-    // devo verificare se il numero non è presente tra i già inseriti in tal caso lo inserisco in numeriScelti.
-    // se non lo è la partita continua. se è presente nella listaBombe la partita è terminata hai perso.
-    
-    
-    // let i = 0;
-    // while ( i < possibilita ) {
-    //     numeroScelto = parseInt(prompt("Inserisci un numero tra 1 e 100"));
-    //     console.log(numeroScelto);
-    //     for (let x = 0; x < numeriScelti.length; i++) {
-    //         if ( numeriScelti[x] === numeroScelto) {
-    //             return ;
-    //         }
-    //         return false;
-    //     }
-    //     i++;
-    // }
+    //Creo funzione che genera un numero randomico
+    function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
 
-    
-    // while (( numeroScelto < possibilita) {
-    //     let numeroScelto = parseInt(prompt("Inserisci un numero tra 1 e 100"));
-    //     console.log(numeroScelto);
-    //     let x = 0;
-    //     while (x < listaBombe.length) {
-            
-    //         if (numeroScelto == listaBombe[x]) {
-    //             numeriScelti.push(numeroScelto);
-    //             console.log(numeriScelti);
-    //             trovato = true;
-    //         x++
-    //         } 
-    //         if (trovato == true) {
-    //             console.log("partita finita");
-    //           }
-    //         }
-    // i++;
-    // }
-
-    
+    // Creo una funzione per controllare se il numero è valido (compreso nel rage tra numeroMin e numeroMax 
+    // oppure non è un numero). 
+    function isNumeroValido(numeroMax, numeroMin, numeroSceltoUtente){
+        if ( isNaN(numeroSceltoUtente) || (numeroSceltoUtente > numeroMax) || (numeroSceltoUtente < numeroMin)) {
+            return false;
+        }
+        return true;
+    }
 
 
+    // Creo una funzione che mi controlla il livello.
 
+    function controlloLivello(livelloDeciso){
+        switch (livelloDeciso) {
+            case "facile":
+            possibilita = 10; 
+            bombe = 2;
+            break;
 
-    
+            case "medio":
+            possibilita = 10; 
+            bombe = 4;
+            break;
 
+            case "difficile":
+            possibilita = 10; 
+            bombe = 6;
+            break;
 
-
-    
-
-    
-
-    // 4 chiedo all'utente con prompt di inserire un numero 
-    // 5 Controllare che il numeroScelto non sia presente nell'array di bombe !!! ALTRIMENTI KABOOM
-    // 6 Controllo se per caso lo aveva già scelto (è già presente nell'array dei numeri scelti dall'utente)
-
-    
-    
-    
-    
-
-
-   
+            default:
+            possibilita = 10; 
+            bombe = 2;
+        }
+        return [possibilita, bombe];
+    }
